@@ -1,5 +1,5 @@
 provider "aws"{
-region = "us-east-1"
+region = "ap-south-1"
 }
 
 # 1. Create a vpc
@@ -37,7 +37,7 @@ cidr_block = "0.0.0.0/0"
  resource "aws_subnet" "subnet-1" {
    vpc_id            = aws_vpc.edu-vpc.id
    cidr_block        = "10.0.1.0/24"
-   availability_zone = "us-east-1a"
+   availability_zone = "ap-south-1a"
 
    tags = {
      Name = "edu-subnet"
@@ -105,10 +105,10 @@ resource "aws_eip" "one" {
 # 9. Create aws_instance
 
 resource "aws_instance" "web-server-instance1" {
-   ami               = "ami-0747bdcabd34c712a"
+   ami               = "ami-0cca134ec43cf708f"
    instance_type     = "t2.micro"
-   availability_zone = "us-east-1a"
-   key_name          = "mykey13march"
+   availability_zone = "ap-south-1a"
+   key_name          = "terraform-demo"
 depends_on                = [aws_eip.one]
    network_interface {
      device_index         = 0
@@ -117,9 +117,9 @@ depends_on                = [aws_eip.one]
 
    user_data = <<-EOF
                  #!/bin/bash
-                 sudo apt update -y
-                 sudo apt install apache2 -y
-                 sudo systemctl start apache2
+                 sudo yum update -y
+                 sudo yum install httpd -y
+                 sudo systemctl start httpd
                  sudo bash -c 'echo Learning Terraform on AWS !! > /var/www/html/index.html'
                  EOF
    tags = {
