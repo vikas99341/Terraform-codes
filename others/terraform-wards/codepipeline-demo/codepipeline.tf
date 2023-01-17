@@ -27,7 +27,7 @@ resource "aws_codepipeline" "demo" {
 
       configuration = {
         RepositoryName = aws_codecommit_repository.demo.repository_name
-        BranchName     = "master"
+        BranchName     = "main"
       }
     }
   }
