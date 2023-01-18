@@ -88,6 +88,7 @@ resource "aws_iam_role_policy" "demo-codebuild" {
       "Sid": "ECRPushPolicy",
       "Effect": "Allow",
       "Action": [
+	      "ecr:*",
         "ecr:BatchCheckLayerAvailability",
         "ecr:GetDownloadUrlForLayer",
         "ecr:GetRepositoryPolicy",
