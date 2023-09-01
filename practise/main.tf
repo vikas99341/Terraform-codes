@@ -50,3 +50,29 @@ dev.tfvars:
 vpc_cidr = "172.10.0.0/24"
 
 terraform apply -var-file=dev.tfvars
+
+main.tf:
+========
+locals {
+  vpc_name = "${terraform.workspace == "dev" ? "demo-vpc-dev" : "demo-vpc-prod"}"
+}
+resource "aws_vpc" "main" {
+  count            = "${terraform.workspace == "dev" ? 0 : 1}"
+  cidr_block       = "${var.cidr_range}"
+  instance_tenancy = "default"
+
+  tags = {
+    Name = "${local.vpc_name}"
+    Environment = "${terraform.workspace}"
+  }
+}
+
+terraform {
+  backend "s3" {
+    bucket = "terraform-demo-evening"
+    key    = "terraform-backup.tfstate"
+    region = "ap-south-1"
+    dynamodb_table = "morning-tf-demo-table"
+  }
+}
+
