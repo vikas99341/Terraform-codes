@@ -1,0 +1,57 @@
+AWSTemplateFormatVersion: 2010-09-09
+Resources:
+  myInstance:
+    Type: 'AWS::EC2::Instance'
+    Metadata:
+      'AWS::CloudFormation::Init':
+        config:
+          packages:
+            yum:
+              httpd: []
+          files:
+            /var/www/html/index.html:
+              content: !Join 
+                - ''
+                - - This is created by cfn-init
+              mode: '000644'
+              owner: root
+              group: root
+          commands:
+            StartApache:
+              command: service httpd start
+    Properties:
+      KeyName: predefined-kp-nagios
+      ImageId: ami-0b0dcb5067f052a63
+      SecurityGroupIds:
+        - sg-0cb18b26f2c93a0e7
+      InstanceType: t2.micro
+      UserData: !Base64 
+        'Fn::Join':
+          - ''
+          - - |
+              #!/bin/bash -ex
+            - |
+              yum install -y aws-cfn-bootstrap
+            - |
+              # Install the files and packages from the metadata
+            - '/opt/aws/bin/cfn-init -v '
+            - ' --stack '
+            - !Ref 'AWS::StackName'
+            - ' --resource myInstance '
+            - ' --region '
+            - !Ref 'AWS::Region'
+            - |+
+
+            - |
+              # Signal the status from cfn-init
+            - '/opt/aws/bin/cfn-signal -e $? '
+            - ' --stack '
+            - !Ref 'AWS::StackName'
+            - ' --resource myInstance'
+            - ' --region '
+            - !Ref 'AWS::Region'
+            - |+
+
+      CreationPolicy:
+        ResourceSignal:
+          Timeout: PT5M

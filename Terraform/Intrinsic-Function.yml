@@ -1,0 +1,16 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Using intrinsic Functions and parameters
+Parameters:
+  s3NamePrefix:
+    Description: Enter the unique prefix to the name of the S3 bucket you need to create
+    Type: String
+    Default: mybucket
+Resources:
+  s3Bucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: !Join 
+        - '-'
+        - - !Ref s3NamePrefix
+          - !Ref 'AWS::StackName'
+          - !Ref 'AWS::Region'

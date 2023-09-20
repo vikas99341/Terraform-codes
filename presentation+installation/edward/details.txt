@@ -1,0 +1,41 @@
+Github repository
+https://github.com/wardviaene/terraform-course
+
+
+Slides: http://assets.in4it.s3.amazonaws.com/public/udemy/learn-devops-terraform-dec2020.pdf (or download as a resource attached to this lecture)
+
+Questions & Support
+Facebook: https://www.facebook.com/groups/840062592768074
+
+If you're on linux you can also use "sudo pip install --upgrade awscli"
+
+If you don't have pip, try sudo apt-get install python-pip
+
+You can test whether it works by entering: aws iam get-user
+
+This will also show your AWS userid which you need afterwards
+
+Useful Commands
+$ terraform plan                                  # plan
+
+$ terraform apply                                 # shortcut for plan & apply - avoid this in production
+
+$ terraform plan -out out.terraform      # terraform plan and write the plan to out file
+
+$ terraform apply out.terraform            # apply terraform plan using out file
+
+$ terraform show                                  # show current state
+
+$ cat terraform.tfstate                           # show state in JSON format
+
+
+Reference Documentation
+Download URL: https://www.terraform.io/downloads.html
+
+AWS Resources: https://www.terraform.io/docs/providers/aws/
+
+List of providers: https://www.terraform.io/docs/providers/index.html
+
+List of AMIs for ubuntu: https://cloud-images.ubuntu.com/locator/ec2/ (hint: make sure not to pick arm64 if you're on amd64)
+
+Resources for this lecture

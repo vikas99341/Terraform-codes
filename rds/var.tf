@@ -1,3 +1,3 @@
-variable "RDS_PASSWORD6" {
+variable "RDS_PASSWORD" {
   default = "DBAdmin54132"
 }

@@ -1,0 +1,10 @@
+terraform show -- > better visualization of state file
+terraform show | grep public_ip
+terraform output -- > see final output
+terraform taint will mark the resource for refresh
+terraform refresh to just refresh the state
+terraform import aws_instance.name <id>
+terraform get
+terraform remote
+
+terraform apply -var ENV=dev

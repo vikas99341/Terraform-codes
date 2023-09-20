@@ -1,0 +1,19 @@
+---
+- hosts: localhost
+  vars:
+    state: present
+    s3_bucket: javahome-tf-1212
+    key: terraform.tfstate
+    region: us-east-1
+    app_env: dev
+  tasks:
+    - name: Run terraform scripts
+      terraform:
+        project_path: "./"
+        state: "{{ state }}"
+        backend_config:
+          bucket: "{{s3_bucket}}"
+          key: "{{key}}"
+          region: "{{region}}"
+        variables_file: "{{app_env}}.tfvars"
+        workspace: "{{app_env}}"
