@@ -19,5 +19,8 @@ sudo amazon-linux-extras install java-openjdk11 -y
 sudo yum install jenkins -y
 sudo systemctl enable jenkins
 sudo systemctl start jenkins
+sudo yum install python-pip -y
+sudo pip install ansible
+sudo pip install boto3
 EOF
 }
